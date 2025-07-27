@@ -16,20 +16,33 @@ class ExportSite extends Command
     {
         $this->info('Exporting static site...');
 
-        // Collect all entry URLs dynamically
-        $paths = [];
+        // Set app environment for static generation
+        config(['app.env' => 'static']);
+        config(['app.url' => '.']);
+
+        // Collect paths manually for known working routes
+        $paths = [
+            '/feed.json',
+        ];
         
-        // Get all published entries
-        $entries = \Statamic\Facades\Entry::all()->filter(function ($entry) {
+        // Get all published entries from capsules collection only
+        $entries = \Statamic\Facades\Entry::whereCollection('capsules')->filter(function ($entry) {
             return $entry->published();
         });
         
         foreach ($entries as $entry) {
-            $paths[] = $entry->url();
+            $url = $entry->url();
+            if ($url !== null) {
+                $paths[] = $url;
+            }
         }
         
-        // Add additional paths
-        $paths[] = '/feed.json';
+        // Try to add home route using a custom route
+        try {
+            $paths[] = '/';
+        } catch (\Exception $e) {
+            $this->warn('Skipping home page due to error: ' . $e->getMessage());
+        }
         
         $this->info('Found ' . count($paths) . ' paths to export: ' . implode(', ', $paths));
 
@@ -60,6 +73,66 @@ class ExportSite extends Command
             ->includeFiles($includeFiles)
             ->export();
 
+        // Post-process files to fix asset paths
+        $this->fixAssetPaths();
+
         $this->info('✅ Export complete. Files are in /dist directory.');
+    }
+
+    private function fixAssetPaths()
+    {
+        $distPath = base_path('dist');
+        $iterator = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($distPath, \RecursiveDirectoryIterator::SKIP_DOTS)
+        );
+
+        foreach ($iterator as $file) {
+            if ($file->getExtension() === 'html') {
+                $content = file_get_contents($file->getPathname());
+                
+                // Get relative depth for links
+                $relativePath = str_replace($distPath . '/', '', $file->getPathname());
+                $depth = substr_count($relativePath, '/');
+                $prefix = $depth > 0 ? str_repeat('../', $depth) : './';
+                
+                // Fix asset paths to use relative paths
+                $content = preg_replace(
+                    '/href="http:\/\/localhost\/build\//',
+                    'href="' . $prefix . 'build/',
+                    $content
+                );
+                $content = preg_replace(
+                    '/src="http:\/\/localhost\/build\//',
+                    'src="' . $prefix . 'build/',
+                    $content
+                );
+                
+                // Fix internal links to use relative paths for GitHub Pages
+                if ($depth > 0) {
+                    // For nested pages, fix links to other capsules and home
+                    $content = preg_replace(
+                        '/href="\/capsules\/([^"]+)"/',
+                        'href="../$1/"',
+                        $content
+                    );
+                    $content = preg_replace(
+                        '/href="\/([^c][^"]*)"/',
+                        'href="../../$1"',
+                        $content
+                    );
+                } else {
+                    // For root pages, make capsule links relative
+                    $content = preg_replace(
+                        '/href="\/capsules\/([^"]+)"/',
+                        'href="capsules/$1/"',
+                        $content
+                    );
+                }
+                
+                file_put_contents($file->getPathname(), $content);
+            }
+        }
+        
+        $this->info('Fixed asset paths and internal links for static deployment');
     }
 }

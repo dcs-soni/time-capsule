@@ -2,3 +2,12 @@ name: admin
 super: true
 id: 17bfad77-ffec-42de-be39-2f790141ff7b
 password_hash: $2y$12$i3A19LKPZpgISsCL58F2gOal9w76h.ddDZaMgdd6gY9JqF43JZZx2
+preferences:
+  collections:
+    capsules:
+      columns:
+        - title
+        - author
+        - slug
+        - date
+        - status

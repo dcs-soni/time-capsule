@@ -2,7 +2,7 @@ title: Capsules
 template: templates/capsule
 layout: layout
 revisions: false
-route: '/capsules{slug}'
+route: '/capsules/{slug}'
 date: true
 sort_dir: asc
 date_behavior:

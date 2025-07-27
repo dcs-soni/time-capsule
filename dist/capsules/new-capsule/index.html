@@ -1,8 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>New Capsule</title>
+        <link rel="preload" as="style" href="../../build/assets/site-BSR4YOQG.css" /><link rel="modulepreload" as="script" href="../../build/assets/site-l0sNRNKZ.js" /><link rel="stylesheet" href="../../build/assets/site-BSR4YOQG.css" /><script type="module" src="../../build/assets/site-l0sNRNKZ.js"></script>
+        <script src="https://unpkg.com/alpinejs" defer></script>
+    </head>
+    <body
+        class="bg-slate-100 dark:bg-gray-800 font-sans leading-normal text-slate-800 dark:text-gray-400"
+    >
+        <div
+            class="mx-auto px-2 lg:min-h-screen flex flex-col items-center justify-center"
+        >
+            <!DOCTYPE html>
+<html lang="en">
+    <head>
         <meta charset="UTF-8" />
-        <title>{{ title }}</title>
+        <title>New Capsule</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link href="./css/app.css" rel="stylesheet" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -28,51 +44,37 @@
                 <h1
                     class="text-4xl sm:text-5xl leading-tight font-semibold text-center text-gray-900 mb-4"
                 >
-                    {{ title }}
+                    New Capsule
                 </h1>
 
                 <!-- Unlock Date -->
                 <p class="text-center text-sm text-gray-500 mb-8">
                     Unlocked on
-                    <time datetime="{{ unlock_date }}"
-                        >{{ unlock_date format="F jS, Y" }}</time
+                    <time datetime=""
+                        >July 27th, 2025</time
                     >
                 </p>
 
                 <!-- Capsule Image -->
-                {{ if image }}
-                <div
-                    class="rounded-xl overflow-hidden border border-gray-100 shadow-sm mb-10"
-                >
-                    <img
-                        src="{{ image }}"
-                        alt="Capsule image"
-                        class="w-full object-cover"
-                    />
-                </div>
-                {{ /if }}
+                
 
                 <!-- Capsule Message -->
-                {{ if message }}
+                
                 <section
                     class="prose prose-neutral max-w-none text-lg mx-auto mb-12"
                 >
-                    {{ message | markdown }}
+                    <p>This is the new capsule</p>
+
                 </section>
-                {{ /if }}
+                
 
                 <!-- Share Button -->
-                {{ if visibility == "public" }}
-                <div class="flex justify-center">
-                    <button
-                        onclick="navigator.clipboard.writeText(window.location.href)"
-                        class="px-6 py-3 text-sm tracking-wide bg-black text-white rounded-full hover:bg-gray-900 transition-all shadow"
-                    >
-                        🔗 Copy Capsule Link
-                    </button>
-                </div>
-                {{ /if }}
+                
             </div>
         </main>
+    </body>
+</html>
+
+        </div>
     </body>
 </html>

@@ -2,9 +2,20 @@
 
 use Illuminate\Support\Facades\Route;
 
-// Route::statamic('example', 'example-view', [
-//    'title' => 'Example'
-// ]);
+
+// Static export home route
+Route::get('/', function () {
+    $entry = \Statamic\Facades\Entry::find('home');
+    return $entry ? $entry->toResponse(request()) : abort(404);
+});
+
+// Static export capsule routes
+Route::get('/capsules/{slug}', function ($slug) {
+    $entry = \Statamic\Facades\Entry::whereCollection('capsules')
+        ->where('slug', $slug)
+        ->first();
+    return $entry ? $entry->toResponse(request()) : abort(404);
+});
 
 Route::get('/feed.json', function () {
     $capsules = Statamic\Facades\Entry::query()

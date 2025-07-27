@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <title>Time Capsule</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link href="/css/app.css" rel="stylesheet" />
+        <link href="./css/app.css" rel="stylesheet" />
     </head>
     <body class="bg-gray-100 text-gray-800 font-sans">
         <div class="max-w-3xl mx-auto py-12 px-6">
@@ -32,8 +32,8 @@
                     Recently Unlocked Capsules
                 </h2>
 
-                {{ collection:capsules sort="unlock_date desc"
-                where="visibility:public" }} {{ if unlock_date <= now }}
+                {{ collection:capsules sort="unlock_date desc" }}
+                {{ if unlock_date && unlock_date <= now }}
                 <div
                     class="bg-white rounded-lg shadow p-6 mb-6 hover:shadow-md transition"
                 >
