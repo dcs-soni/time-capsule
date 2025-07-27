@@ -70,6 +70,11 @@ return [
             'report' => false,
         ],
 
+        'export' => [
+            'driver' => 'local',
+            'root' => storage_path('app/export'),
+        ],
+
     ],
 
     /*

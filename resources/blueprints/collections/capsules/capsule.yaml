@@ -1,0 +1,79 @@
+title: Capsule
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+              display: Title
+              instructions: 'Title of the capsule'
+          -
+            handle: unlock_date
+            field:
+              type: date
+              display: 'Unlock Date'
+              instructions: 'Controls when it becomes visible'
+          -
+            handle: message
+            field:
+              type: markdown
+              display: Message
+              instructions: 'Main content'
+          -
+            handle: visibility
+            field:
+              type: select
+              display: Visibility
+              instructions: 'Options: public, private'
+          -
+            handle: image_audio
+            field:
+              container: assets
+              type: assets
+              display: Image/Audio
+              instructions: 'Optional media'
+          -
+            handle: author
+            field:
+              type: text
+              display: Author
+              instructions: 'Author name'
+          -
+            handle: password
+            field:
+              type: text
+              display: Password
+              instructions: 'Only shown if "Early Unlock" chosen'
+              if:
+                early_unlock: 'equals true'
+          -
+            handle: early_unlock
+            field:
+              type: toggle
+              display: 'Early Unlock'
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
+          -
+            handle: date
+            field:
+              type: date
+              required: true
+              default: now
+              validate:
+                - required
