@@ -1,43 +1,149 @@
-<p align="center"><img src="https://statamic.com/assets/branding/Statamic-Logo+Wordmark-Rad.svg" width="400" alt="Statamic Logo" /></p>
+# ⏰ Time Capsule
 
-## About Statamic
+A POC, modern time capsule application built with [Statamic](https://statamic.com) that allows you to create digital time capsules with scheduled unlock dates. Perfect for preserving memories, messages, and moments for future discovery.
 
-Statamic is the flat-first, Laravel + Git powered CMS designed for building beautiful, easy to manage websites.
+![Time Capsule Preview](https://img.shields.io/badge/Status-Live-brightgreen)
+![Statamic Version](https://img.shields.io/badge/Statamic-5.0-blue)
+![PHP Version](https://img.shields.io/badge/PHP-8.2+-purple)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-> [!NOTE]
-> This repository contains the code for a fresh Statamic project that is installed via the Statamic CLI tool.
->
-> The code for the Statamic Composer package itself can be found at the [Statamic core package repository][cms-repo].
+## 🌟 Features
+
+- **📅 Scheduled Unlock Dates** - Set specific dates when your capsules become accessible
+- **🔐 Early Unlock Option** - Password-protected early access for special occasions
+- **📝 Rich Content Support** - Markdown formatting for beautiful message formatting
+- **🖼️ Media Attachments** - Add images and audio to your capsules
+- **🌐 Public/Private Visibility** - Choose who can see your capsules
+- **📱 Responsive Design** - Beautiful, mobile-friendly interface
+- **🚀 Static Site Export** - Generate static HTML for easy deployment
+
+## 🚀 Live Demo
+
+Visit the live site: [Time Capsule Demo](https://dcs-soni.github.io/time-capsule/)
+
+## 🛠️ Tech Stack
+
+- **Backend**: [Statamic 5.0](https://statamic.com) (Laravel-based CMS)
+- **Frontend**: [Tailwind CSS](https://tailwindcss.com) + [Vite](https://vitejs.dev)
+- **Static Export**: [Spatie Laravel Export](https://github.com/spatie/laravel-export)
+- **Deployment**: GitHub Pages with automated static site generation
+
+## 📦 Installation
+
+### Prerequisites
+
+- PHP 8.2 or higher
+- Composer
+- Node.js 16+ and npm
+- Git
 
 
-## Learning Statamic
+## 🎯 Usage
 
-Statamic has extensive [documentation][docs]. We dedicate a significant amount of time and energy every day to improving them, so if something is unclear, feel free to open issues for anything you find confusing or incomplete. We are happy to consider anything you feel will make the docs and CMS better.
+### Creating a Time Capsule
 
-## Support
+1. **Access the Control Panel**
+   - Navigate to `/cp` in your browser
+   - Login with your admin credentials
 
-We provide official developer support on [Statamic Pro](https://statamic.com/pricing) projects. Community-driven support is available on the [forum](https://statamic.com/forum) and in [Discord][discord].
+2. **Create New Capsule [Only Admin for now]**
+   - Go to Collections → Capsules
+   - Click "Create Entry"
+   - Fill in the capsule details:
+     - **Title**: A memorable name for your capsule
+     - **Unlock Date**: When the capsule becomes accessible
+     - **Message**: Your main content (supports Markdown)
+     - **Visibility**: Public or Private
+     - **Media**: Optional images or audio files
+     - **Early Unlock**: Enable password protection for early access
+
+3. **Publish Your Capsule**
+   - Save and publish your entry
+   - Your capsule is now live and will unlock on the specified date
+
+### Managing Capsules
+
+- **View All Capsules**: Browse all capsules in the control panel
+- **Edit Capsules**: Modify content, dates, or settings anytime
+- **Delete Capsules**: Remove capsules that are no longer needed
+- **Bulk Operations**: Manage multiple capsules at once
+
+## 🚀 Deployment
+
+### Static Site Export
+
+This project includes automated static site generation for easy deployment:
+
+```bash
+# Generate static site
+php artisan site:export
+
+# Or use the composer script
+composer run static
+```
+
+The static files will be generated in the `/dist` directory, ready for deployment to any static hosting service.
+
+### GitHub Pages Deployment
+
+The project is configured for automatic deployment to GitHub Pages:
 
 
-## Contributing
+## 🎨 Customization
 
-Thank you for considering contributing to Statamic! We simply ask that you review the [contribution guide][contribution] before you open issues or send pull requests.
+### Styling
+
+The application uses Tailwind CSS for styling. Customize the design by modifying:
+
+- `resources/css/app.css` - Main stylesheet
+- `resources/views/templates/capsule.antlers.html` - Capsule template
+- `tailwind.config.js` - Tailwind configuration
+
+### Content Structure
+
+The capsule content structure is defined in:
+- `resources/blueprints/collections/capsules/capsule.yaml` - Content blueprint
+- `content/collections/capsules/` - Content directory
+
+### Templates
+
+Customize the capsule display template:
+- `resources/views/templates/capsule.antlers.html` - Main capsule template
+- `resources/views/layout.antlers.html` - Base layout
 
 
-## Code of Conduct
+### Project Structure
 
-In order to ensure that the Statamic community is welcoming to all and generally a rad place to belong, please review and abide by the [Code of Conduct](https://github.com/statamic/cms/wiki/Code-of-Conduct).
+```
+timecapsule/
+├── app/                    # Laravel application code
+├── content/               # Statamic content
+│   └── collections/
+│       └── capsules/      # Time capsule entries
+├── resources/
+│   ├── blueprints/        # Content structure definitions
+│   ├── css/              # Stylesheets
+│   ├── js/               # JavaScript files
+│   └── views/            # Templates
+├── dist/                 # Static export output
+└── public/               # Public assets
+```
 
 
-## Important Links
+## 🙏 Acknowledgments
 
-- [Statamic Main Site](https://statamic.com)
-- [Statamic Documentation][docs]
-- [Statamic Core Package Repo][cms-repo]
-- [Statamic Migrator](https://github.com/statamic/migrator)
-- [Statamic Discord][discord]
+- Built with [Statamic](https://statamic.com) - The flat-first, Laravel-powered CMS
+- Styled with [Tailwind CSS](https://tailwindcss.com) - A utility-first CSS framework
+- Static export powered by [Spatie Laravel Export](https://github.com/spatie/laravel-export)
 
-[docs]: https://statamic.dev/
-[discord]: https://statamic.com/discord
-[contribution]: https://github.com/statamic/cms/blob/master/CONTRIBUTING.md
-[cms-repo]: https://github.com/statamic/cms
+## 📞 Support
+
+If you have any questions or need help, please:
+
+- Open an issue on GitHub
+- Check the [Statamic documentation](https://statamic.dev/)
+- Join the [Statamic community](https://statamic.com/discord)
+
+---
+
+**Made with ❤️ for preserving memories across time**
