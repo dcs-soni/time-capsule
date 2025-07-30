@@ -24,7 +24,7 @@
     </head>
     <body class="bg-gray-100 text-gray-800 font-sans">
         <div class="max-w-3xl mx-auto py-12 px-6">
-            <!-- Header -->
+           
             <header class="text-center mb-12">
                 <h1 class="text-4xl font-bold mb-4">🕰️ Time Capsule</h1>
                 <p class="text-lg text-gray-600">
@@ -32,7 +32,7 @@
                 </p>
             </header>
 
-            <!-- CTA Button -->
+            <!-- CTA  -->
             <div class="text-center mb-10">
                 <a
                     href="/cp"
@@ -42,52 +42,227 @@
                 </a>
             </div>
 
-            <!-- Recently Unlocked Capsules -->
+            <!-- Search and Filter Section -->
+            <div class="bg-white rounded-lg shadow p-4 mb-8">
+                <div class="flex flex-wrap items-end gap-3">
+                    <!-- Search Box -->
+                    <div class="flex-1 min-w-48">
+                        <input
+                            type="text"
+                            id="search"
+                            placeholder="Search by title or content..."
+                            class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                        />
+                    </div>
+
+        
+                    <div class="min-w-32">
+                        <select
+                            id="dateFilter"
+                            class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                        >
+                            <option value="">All Dates</option>
+                            <option value="thisWeek">This Week</option>
+                            <option value="thisMonth">This Month</option>
+                            <option value="thisYear">This Year</option>
+                        </select>
+                    </div>
+
+                    <!-- Sort -->
+                    <div class="min-w-40">
+                        <select
+                            id="sortBy"
+                            class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                        >
+                            <option value="unlock_date_desc">Newest First</option>
+                            <option value="unlock_date_asc">Oldest First</option>
+                            <option value="title_asc">A-Z</option>
+                            <option value="title_desc">Z-A</option>
+                        </select>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <button
+                            id="applyFilters"
+                            class="px-4 py-2 text-sm text-white bg-blue-600 rounded-md hover:bg-blue-700 transition font-medium"
+                        >
+                            Apply
+                        </button>
+                        <button
+                            id="clearFilters"
+                            class="px-4 py-2 text-sm text-gray-600 bg-gray-100 rounded-md hover:bg-gray-200 transition"
+                        >
+                            Clear
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+           
             <section>
                 <h2 class="text-2xl font-semibold mb-4 border-b pb-2">
                     Recently Unlocked Capsules
                 </h2>
 
-                 
-                <div
-                    class="bg-white rounded-lg shadow p-6 mb-6 hover:shadow-md transition"
-                >
-                    <a
-                        href="capsules/test-capsule/"
-                        class="text-xl font-bold text-blue-600 hover:underline"
+                <div id="capsulesContainer">
+                     
+                    <div
+                        class="capsule-item bg-white rounded-lg shadow p-6 mb-6 hover:shadow-md transition"
+                        data-title="another new capsule"
+                        data-message=""
+                        data-unlock-date="2025-07-29 00:00:00"
+                        data-date-timestamp="1753747200"
                     >
-                        Test capsule
-                    </a>
-                    <p class="text-sm text-gray-500 mt-1">
-                        Unlocked on July 27, 2025
-                    </p>
+                        <a
+                            href="capsules/another-new-capsule/"
+                            class="text-xl font-bold text-blue-600 hover:underline"
+                        >
+                            another new capsule
+                        </a>
+                        <p class="text-sm text-gray-500 mt-1">
+                            Unlocked on July 29, 2025
+                        </p>
 
-                    
-                </div>
-                  
-                <div
-                    class="bg-white rounded-lg shadow p-6 mb-6 hover:shadow-md transition"
-                >
-                    <a
-                        href="capsules/new-capsule/"
-                        class="text-xl font-bold text-blue-600 hover:underline"
+                        
+                    </div>
+                      
+                    <div
+                        class="capsule-item bg-white rounded-lg shadow p-6 mb-6 hover:shadow-md transition"
+                        data-title="A new capsule"
+                        data-message=""
+                        data-unlock-date="2025-07-29 00:00:00"
+                        data-date-timestamp="1753747200"
                     >
-                        New capsule
-                    </a>
-                    <p class="text-sm text-gray-500 mt-1">
-                        Unlocked on July 27, 2025
-                    </p>
+                        <a
+                            href="capsules/a-new-capsule/"
+                            class="text-xl font-bold text-blue-600 hover:underline"
+                        >
+                            A new capsule
+                        </a>
+                        <p class="text-sm text-gray-500 mt-1">
+                            Unlocked on July 29, 2025
+                        </p>
 
-                    
-                    <p class="mt-3 text-gray-700 line-clamp-3">
-                        <p>Some information inside the new capsule</p>
-
-                    </p>
-                    
+                        
+                    </div>
+                     
                 </div>
-                  
+                
+                <!-- No Results Message -->
+                <div id="noResults" class="hidden" style="display: none;">
+                    <p class="text-gray-500 mt-4 text-center">
+                        No capsules match your search criteria.
+                    </p>
+                </div>
+                
+                
             </section>
         </div>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const searchInput = document.getElementById('search');
+                const dateFilter = document.getElementById('dateFilter');
+                const sortBy = document.getElementById('sortBy');
+                const applyFilters = document.getElementById('applyFilters');
+                const clearFilters = document.getElementById('clearFilters');
+                const capsulesContainer = document.getElementById('capsulesContainer');
+                const noResults = document.getElementById('noResults');
+                const originalNoResults = document.getElementById('originalNoResults');
+                
+                let allCapsules = Array.from(document.querySelectorAll('.capsule-item'));
+                
+                function filterAndSort() {
+                    const searchTerm = searchInput.value.toLowerCase().trim();
+                    const dateFilterValue = dateFilter.value;
+                    const sortValue = sortBy.value;
+                    
+                    // Check if any filters are actually applied
+                    const hasActiveFilters = searchTerm !== '' || dateFilterValue !== '';
+                    
+                    let filteredCapsules = allCapsules.filter(capsule => {
+                        const title = capsule.dataset.title.toLowerCase();
+                        const message = capsule.dataset.message.toLowerCase();
+                        const unlockDate = new Date(capsule.dataset.unlockDate);
+                        
+                        const matchesSearch = searchTerm === '' || title.includes(searchTerm) || message.includes(searchTerm);
+                        
+                        let matchesDate = true;
+                        if (dateFilterValue) {
+                            const today = new Date();
+                            const dayMs = 24 * 60 * 60 * 1000;
+                            const weekMs = 7 * dayMs;
+                            
+                            switch (dateFilterValue) {
+                                case 'thisWeek':
+                                    matchesDate = (today - unlockDate) <= weekMs;
+                                    break;
+                                case 'thisMonth':
+                                    matchesDate = unlockDate.getMonth() === today.getMonth() && 
+                                                unlockDate.getFullYear() === today.getFullYear();
+                                    break;
+                                case 'thisYear':
+                                    matchesDate = unlockDate.getFullYear() === today.getFullYear();
+                                    break;
+                            }
+                        }
+                        
+                        return matchesSearch && matchesDate;
+                    });
+                    
+                    filteredCapsules.sort((a, b) => {
+                        switch (sortValue) {
+                            case 'unlock_date_asc':
+                                return parseInt(a.dataset.dateTimestamp) - parseInt(b.dataset.dateTimestamp);
+                            case 'unlock_date_desc':
+                                return parseInt(b.dataset.dateTimestamp) - parseInt(a.dataset.dateTimestamp);
+                            case 'title_asc':
+                                return a.dataset.title.localeCompare(b.dataset.title);
+                            case 'title_desc':
+                                return b.dataset.title.localeCompare(a.dataset.title);
+                            default:
+                                return parseInt(b.dataset.dateTimestamp) - parseInt(a.dataset.dateTimestamp);
+                        }
+                    });
+                    
+                    allCapsules.forEach(capsule => capsule.style.display = 'none');
+                    filteredCapsules.forEach(capsule => capsule.style.display = 'block');
+                    
+                
+                    if (hasActiveFilters && filteredCapsules.length === 0) {
+                        noResults.style.display = 'block';
+                    } else {
+                        noResults.style.display = 'none';
+                    }
+                }
+                
+                function clearAllFilters() {
+                    searchInput.value = '';
+                    dateFilter.value = '';
+                    sortBy.value = 'unlock_date_desc';
+                    filterAndSort();
+                }
+                
+                applyFilters.addEventListener('click', filterAndSort);
+                clearFilters.addEventListener('click', clearAllFilters);
+                
+                // Allow Enter key to apply filters from search input
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        filterAndSort();
+                    }
+                });
+                
+                // Initial load - ensure search no results is hidden and show all capsules
+                noResults.style.display = 'none';
+                allCapsules.sort((a, b) => {
+                    return parseInt(b.dataset.dateTimestamp) - parseInt(a.dataset.dateTimestamp);
+                });
+                allCapsules.forEach(capsule => {
+                    capsule.style.display = 'block';
+                });
+            });
+        </script>
     </body>
 </html>
 
