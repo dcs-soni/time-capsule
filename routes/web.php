@@ -5,8 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 // Static export home route
 Route::get('/', function () {
-    $entry = \Statamic\Facades\Entry::find('home');
-    return $entry ? $entry->toResponse(request()) : abort(404);
+    $entry = \Statamic\Facades\Entry::whereCollection('pages')->where('slug', 'home')->first();
+    return $entry ? $entry->toResponse(request()) : view('home');
 });
 
 // Static export capsule routes
