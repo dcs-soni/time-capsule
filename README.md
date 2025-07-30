@@ -5,12 +5,10 @@ A POC, modern time capsule application built with [Statamic](https://statamic.co
 ![Time Capsule Preview](https://img.shields.io/badge/Status-Live-brightgreen)
 ![Statamic Version](https://img.shields.io/badge/Statamic-5.0-blue)
 ![PHP Version](https://img.shields.io/badge/PHP-8.2+-purple)
-![License](https://img.shields.io/badge/License-MIT-green)
 
 ## 🌟 Features
 
 - **📅 Scheduled Unlock Dates** - Set specific dates when your capsules become accessible
-- **🔐 Early Unlock Option** - Password-protected early access for special occasions
 - **📝 Rich Content Support** - Markdown formatting for beautiful message formatting
 - **🖼️ Media Attachments** - Add images and audio to your capsules
 - **🌐 Public/Private Visibility** - Choose who can see your capsules
